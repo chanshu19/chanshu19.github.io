@@ -1,0 +1,333 @@
+:root {
+    --bg: #f3f5fb;
+    --surface: #ffffff;
+    --surface-strong: #eef2ff;
+    --primary: #4f46e5;
+    --primary-soft: #eef2ff;
+    --secondary: #14b8a6;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: rgba(15, 23, 42, 0.08);
+    --shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #eef2ff 0%, #f8fafc 42%, #f3f5fb 100%);
+    color: var(--text);
+}
+
+.page {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 80px;
+}
+
+.hero {
+    display: grid;
+    gap: 20px;
+    padding: 32px 28px;
+    border-radius: 32px;
+    background: linear-gradient(180deg, rgba(79, 70, 229, 0.15), transparent 70%);
+    border: 1px solid rgba(79, 70, 229, 0.15);
+    box-shadow: var(--shadow);
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2.4rem, 3.4vw, 4rem);
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+}
+
+.hero p {
+    margin: 0;
+    max-width: 46rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+.badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.95rem;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.tool-selector,
+.card-grid-2 {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin-top: 32px;
+}
+
+.tool-selector {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tool-card {
+    grid-column: span 12;
+    padding: 28px;
+    border-radius: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.tool-card h2 {
+    margin: 0 0 14px;
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+.tool-card p {
+    margin: 0 0 22px;
+    color: var(--muted);
+    line-height: 1.65;
+}
+
+.tool-card:hover {
+    transform: translateY(-2px);
+}
+
+.tool-card.active {
+    background: rgba(79, 70, 229, 0.08);
+    border-color: rgba(79, 70, 229, 0.35);
+    box-shadow: 0 30px 80px rgba(79, 70, 229, 0.12);
+}
+
+.tool-card button {
+    margin-top: 18px;
+}
+
+.tool-panel {
+    margin-top: 32px;
+    display: grid;
+    gap: 24px;
+}
+
+.tool-panel .panel {
+    display: none;
+    grid-column: span 12;
+}
+
+.tool-panel .panel.active {
+    display: block;
+}
+
+.spacer {
+    height: 24px;
+}
+
+.input-group,
+.expense-row,
+.qr-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+input[type='text'],
+input[type='number'],
+textarea,
+select {
+    width: 100%;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(79, 70, 229, 0.35);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.08);
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 20px;
+    font-weight: 700;
+    color: white;
+    background: var(--primary);
+    transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+}
+
+button.secondary {
+    background: var(--secondary);
+    color: #062e2a;
+}
+
+button:hover {
+    opacity: 0.95;
+    transform: translateY(-1px);
+}
+
+.compact {
+    flex: 1;
+    min-width: 180px;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.tag {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: var(--surface-strong);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.95rem;
+}
+
+.status-panel,
+.qr-panel {
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--surface-strong);
+    border: 1px solid rgba(79, 70, 229, 0.1);
+}
+
+.status-panel h3,
+.qr-panel h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.status-panel ul,
+.qr-panel ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.status-panel li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.status-panel li:last-child {
+    border-bottom: none;
+}
+
+.result-box {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 20px;
+    background: #eff6ff;
+    border-left: 4px solid var(--primary);
+}
+
+.result-box ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.qr-output {
+    display: grid;
+    gap: 16px;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+}
+
+#qr-canvas {
+    width: 220px;
+    height: 220px;
+    border-radius: 24px;
+    background: white;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.placeholder-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.placeholder-list li {
+    padding: 16px;
+    border-radius: 18px;
+    background: rgba(79, 70, 229, 0.05);
+    color: var(--text);
+}
+
+.footer-note {
+    margin-top: 10px;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+@media (min-width: 860px) {
+    .card-grid-2 .tool-card,
+    .tool-panel .panel {
+        grid-column: span 12;
+    }
+
+    .tool-card.wide {
+        grid-column: span 12;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero {
+        padding: 24px;
+    }
+
+    .tool-card {
+        padding: 22px;
+    }
+
+    .button-row {
+        flex-direction: column;
+    }
+}

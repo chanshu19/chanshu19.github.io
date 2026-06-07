@@ -1,225 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SettleUp AI | Smart Expense Manager</title>
-    <meta name="description" content="A professional split expense manager with auto-settle logic. Designed for groups to simplify debts with minimum transactions.">
-    
-    <style>
-        :root {
-            --primary: #6200ee;
-            --secondary: #03dac6;
-            --background: #f8f9fa;
-            --card: #ffffff;
-            --text: #212121;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--background);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        h2 { font-size: 1.2rem; margin-top: 0; color: var(--primary); }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        input, select {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: opacity 0.2s;
-        }
-
-        button:hover { opacity: 0.9; }
-
-        .btn-secondary { background: var(--secondary); color: #000; }
-
-        .list-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        #settle-results {
-            background: #e3f2fd;
-            border-left: 4px solid var(--primary);
-            padding: 15px;
-            border-radius: 4px;
-            display: none;
-        }
-
-        .tag {
-            font-size: 0.8rem;
-            background: #eee;
-            padding: 2px 8px;
-            border-radius: 12px;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chanshu19 Toolbox | VIP Utility Dashboard</title>
+    <meta name="description" content="Chanshu19 Toolbox is a static GitHub Pages dashboard for expense splitting, QR code generation, and future browser tools." />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+    <main class="page">
+        <section class="hero">
+            <div>
+                <p class="badge">Built for Chanshu19</p>
+                <h1>Chanshu19 Toolbox</h1>
+                <p>Your personal static utility dashboard for smart expense splitting, QR code creation, and more useful tools coming soon — all hosted directly on GitHub Pages.</p>
+                <div class="badge-row">
+                    <span class="badge">Static site ready</span>
+                    <span class="badge">No backend required</span>
+                    <span class="badge">Expandable toolkit</span>
+                </div>
+            </div>
+        </section>
 
-<div class="container">
-    <header>
-        <h1>SettleUp AI</h1>
-        <p>Smart debt simplification for your group</p>
-    </header>
+        <section class="tool-selector">
+            <article class="tool-card active" id="card-expense" onclick="selectTool('expense')">
+                <h2>Expense Splitter</h2>
+                <p>Add group members, log shared bills, and compute the best settle-up transactions in one click.</p>
+                <button>Open expense splitter</button>
+            </article>
 
-    <!-- Member Management -->
-    <section class="card">
-        <h2>1. Add Members</h2>
-        <div class="input-group">
-            <input type="text" id="member-name" placeholder="Enter name (e.g., Chanshu)">
-            <button onclick="addMember()">Add</button>
-        </div>
-        <div id="member-list"></div>
-    </section>
+            <article class="tool-card" id="card-qr" onclick="selectTool('qr')">
+                <h2>QR Code Generator</h2>
+                <p>Create QR codes from any text or link, then download the result as a PNG image.</p>
+                <button>Open QR generator</button>
+            </article>
 
-    <!-- Expense Logging -->
-    <section class="card">
-        <h2>2. Add Expense</h2>
-        <div class="input-group">
-            <select id="payer-select"><option value="">Who paid?</option></select>
-            <input type="number" id="amount" placeholder="Amount (₹)">
-        </div>
-        <input type="text" id="desc" placeholder="What for? (e.g., Dinner)" style="width: 100%; margin-bottom: 10px; box-sizing: border-box;">
-        <button class="btn-secondary" style="width: 100%;" onclick="addExpense()">Add Expense</button>
-    </section>
+            <article class="tool-card" id="card-future" onclick="selectTool('future')">
+                <h2>More tools</h2>
+                <p>Preview planned toolbox features and keep this page ready for new additions.</p>
+                <button>Explore upcoming tools</button>
+            </article>
+        </section>
 
-    <!-- Results -->
-    <section class="card">
-        <h2>3. Settle Up</h2>
-        <button onclick="calculateSettlement()" style="width: 100%; margin-bottom: 15px;">Auto Calculate Best Path</button>
-        <div id="settle-results">
-            <strong>Optimized Transactions:</strong>
-            <ul id="transaction-list" style="padding-left: 20px; margin-top: 10px;"></ul>
-        </div>
-    </section>
-</div>
+        <section class="tool-panel">
+            <article class="panel active" id="tool-expense">
+                <h2>Expense Splitter</h2>
+                <p>Manage group spending and calculate who owes what with simple shared expense tracking.</p>
+                <div class="input-group">
+                    <input id="member-name" type="text" placeholder="Add member name" />
+                    <button onclick="addMember()">Add member</button>
+                </div>
+                <div class="tag-list" id="member-list">No members yet.</div>
+                <div class="spacer"></div>
+                <div class="expense-row">
+                    <select id="payer-select"><option value="">Select payer</option></select>
+                    <input id="amount" type="number" placeholder="Amount (₹)" min="0" step="0.01" />
+                </div>
+                <textarea id="desc" placeholder="Expense description (e.g., Dinner, Taxi)"></textarea>
+                <div class="button-row">
+                    <button class="secondary compact" onclick="addExpense()">Log expense</button>
+                    <button class="compact" onclick="calculateSettlement()">Calculate settlement</button>
+                </div>
+                <div class="result-box" id="settle-results" style="display: none;">
+                    <strong>Optimized transactions</strong>
+                    <ul id="transaction-list"></ul>
+                </div>
+                <div class="status-panel" style="margin-top: 24px;">
+                    <h3>Current summary</h3>
+                    <ul>
+                        <li><span>Members</span><strong id="member-count">0</strong></li>
+                        <li><span>Expenses</span><strong id="expense-count">0</strong></li>
+                        <li><span>Average expense</span><strong id="avg-expense">₹0.00</strong></li>
+                    </ul>
+                </div>
+            </article>
 
-<script>
-    let members = [];
-    let expenses = [];
+            <article class="panel" id="tool-qr">
+                <h2>QR Code Generator</h2>
+                <p>Generate a scannable QR code from any text, then save it locally or use it to share links instantly.</p>
+                <textarea id="qr-input" placeholder="Enter text, link, or note to encode"></textarea>
+                <div class="qr-actions">
+                    <button onclick="createQRCode()">Generate QR</button>
+                    <button class="secondary" onclick="downloadQR()">Download PNG</button>
+                </div>
+                <div class="qr-panel qr-output">
+                    <div id="qr-container">
+                        <canvas id="qr-canvas" aria-label="QR code output"></canvas>
+                    </div>
+                    <p class="footer-note">Use this QR code for quick sharing on mobile, presentations, or printed notes.</p>
+                </div>
+            </article>
 
-    function addMember() {
-        const nameInput = document.getElementById('member-name');
-        const name = nameInput.value.trim();
-        if (name && !members.includes(name)) {
-            members.push(name);
-            updateUI();
-            nameInput.value = '';
-        }
-    }
+            <article class="panel" id="tool-future">
+                <h2>More Tools Coming</h2>
+                <p>Keep this page as your personal utility dashboard. Future additions will appear here as new cards and panels.</p>
+                <ul class="placeholder-list">
+                    <li>Receipt scanner / expense OCR</li>
+                    <li>Simple loan calculator</li>
+                    <li>Event RSVP checklist</li>
+                    <li>Link shortener / share cards</li>
+                </ul>
+                <p class="footer-note">Want a specific tool next? I can add it to your dashboard.</p>
+            </article>
+        </section>
+    </main>
 
-    function addExpense() {
-        const payer = document.getElementById('payer-select').value;
-        const amount = parseFloat(document.getElementById('amount').value);
-        const desc = document.getElementById('desc').value;
-
-        if (payer && amount > 0) {
-            expenses.push({ payer, amount, desc });
-            updateUI();
-            document.getElementById('amount').value = '';
-            document.getElementById('desc').value = '';
-        }
-    }
-
-    function updateUI() {
-        // Update member display
-        const memberList = document.getElementById('member-list');
-        memberList.innerHTML = members.map(m => `<span class="tag">${m}</span>`).join(' ');
-
-        // Update dropdown
-        const select = document.getElementById('payer-select');
-        select.innerHTML = '<option value="">Who paid?</option>' + 
-            members.map(m => `<option value="${m}">${m}</option>`).join('');
-    }
-
-    function calculateSettlement() {
-        if (members.length < 2) return alert("Add at least 2 members.");
-        
-        let balances = {};
-        members.forEach(m => balances[m] = 0);
-
-        // Step 1: Calculate net balance for each person
-        expenses.forEach(exp => {
-            const share = exp.amount / members.length;
-            members.forEach(m => {
-                if (m === exp.payer) {
-                    balances[m] += (exp.amount - share);
-                } else {
-                    balances[m] -= share;
-                }
-            });
-        });
-
-        // Step 2: Settle Up Logic (Greedy Algorithm)
-        let debtors = [];
-        let creditors = [];
-
-        for (let name in balances) {
-            if (balances[name] < -0.01) debtors.push({ name, amount: Math.abs(balances[name]) });
-            else if (balances[name] > 0.01) creditors.push({ name, amount: balances[name] });
-        }
-
-        let transactions = [];
-        let i = 0, j = 0;
-
-        while (i < debtors.length && j < creditors.length) {
-            let amount = Math.min(debtors[i].amount, creditors[j].amount);
-            transactions.push(`<li><b>${debtors[i].name}</b> pays ₹${amount.toFixed(2)} to <b>${creditors[j].name}</b></li>`);
-            
-            debtors[i].amount -= amount;
-            creditors[j].amount -= amount;
-
-            if (debtors[i].amount < 0.01) i++;
-            if (creditors[j].amount < 0.01) j++;
-        }
-
-        const resultDiv = document.getElementById('settle-results');
-        const list = document.getElementById('transaction-list');
-        list.innerHTML = transactions.length > 0 ? transactions.join('') : "<li>Everyone is settled up!</li>";
-        resultDiv.style.display = 'block';
-    }
-</script>
-
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
